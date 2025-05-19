@@ -1,0 +1,21 @@
+<LinkedHashSet>
+  <HumanBeing>
+    <id>1</id>
+    <name>John Wick</name>
+    <coordinates>
+      <x>12.5</x>
+      <y>42.0</y>
+    </coordinates>
+    <creationDate>2023-10-25 14:30:00.0 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>false</hasToothpick>
+    <impactSpeed>120.5</impactSpeed>
+    <weaponType>SHOTGUN</weaponType>
+    <mood>RAGE</mood>
+    <car>
+      <name>Mustang</name>
+    </car>
+  </HumanBeing>
+  <lastInitTime>2025-05-20T00:28:18.9241713</lastInitTime>
+  <lastSaveTime>2025-05-20T00:28:19.1828757</lastSaveTime>
+</LinkedHashSet>
