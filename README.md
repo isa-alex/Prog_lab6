@@ -20,3 +20,7 @@ in another cmd window
 cd client/target
 java -jar client-1.0-SNAPSHOT.jar localhost 6086
 ```
+script running for client
+```
+execute_script /home/studs/s466049/Prog_lab6/client/script
+```
