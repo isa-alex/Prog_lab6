@@ -1,11 +1,14 @@
 # Prog_lab6
 
-for installation and first go
+for installation and first go (on helios linux use **export** for enviromental variables, in windows cmd use **set**)
 
 ```
 git clone https://github.com/isa_alex/Prog_lab6/ 
 mvn package
 export file_path=/home/studs/sXXXXXX/Prog_lab6/server/my_objects.xml
+```
+```
+set file_path=C:\~\Prog_lab6\server\my_objects.xml
 ```
 
 first cmd window
