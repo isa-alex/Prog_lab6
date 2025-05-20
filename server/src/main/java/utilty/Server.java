@@ -44,14 +44,14 @@ public class Server {
     public void run(){
         try{
             openServerSocket();
-            serverLogger.info("Создано соединение с клиентом");
+            serverLogger.info("Successfully connected with a client");
             while (true) {
                 try {
                     if (scanner.ready()) {
                         String line = scanner.readLine();
                         if (line.equals("save") || line.equals("s")) {
                             fileManager.saveObjects();
-                            serverLogger.info("Коллекция сохранена");
+                            serverLogger.info("Collection has been saved");
                         }
                     }
                 } catch (IOException ignored) {}
@@ -61,34 +61,34 @@ public class Server {
                     if(!processClientRequest(clientSocket)) break;
                 } catch (ConnectionErrorException | SocketTimeoutException ignored) {
                 } catch (IOException exception) {
-                    console.printError("Произошла ошибка при попытке завершить соединение с клиентом!");
-                    serverLogger.error("Произошла ошибка при попытке завершить соединение с клиентом!");
+                    console.printError("An error appeared when trying to close connection with a client");
+                    serverLogger.error("An error appeared when trying to close connection with a client");
                 }
             }
             stop();
-            serverLogger.info("Соединение закрыто");
+            serverLogger.info("Connection closed");
         } catch (OpeningServerException e) {
-            console.printError("Сервер не может быть запущен");
-            serverLogger.fatal("Сервер не может быть запущен");
+            console.printError("Server can't be runed");
+            serverLogger.fatal("Server can't be runed");
         }
     }
 
     private void openServerSocket() throws OpeningServerException{
         try {
             SocketAddress socketAddress = new InetSocketAddress(port);
-            serverLogger.debug("Создан сокет");
+            serverLogger.debug("Socket created");
             ss = ServerSocketChannel.open();
-            serverLogger.debug("Создан канал");
+            serverLogger.debug("Channel created");
             ss.bind(socketAddress);
             ss.configureBlocking(false);
-            serverLogger.debug("Открыт канал сокет");
+            serverLogger.debug("Socket cannel opened");
         } catch (IllegalArgumentException exception) {
-            console.printError("Порт '" + port + "' находится за пределами возможных значений!");
-            serverLogger.error("Порт находится за пределами возможных значений");
+            console.printError("Port '" + port + "' is out of reach");
+            serverLogger.error("Port is out of reach");
             throw new OpeningServerException();
         } catch (IOException exception) {
-            serverLogger.error("Произошла ошибка при попытке использовать порт");
-            console.printError("Произошла ошибка при попытке использовать порт '" + port + "'!");
+            serverLogger.error("An error appeared when trying to use port");
+            console.printError("An error appeared when trying to use port '" + port + "'!");
             throw new OpeningServerException();
         }
     }
@@ -100,7 +100,7 @@ public class Server {
         } catch (SocketTimeoutException exception) {
             throw new SocketTimeoutException();
         } catch (IOException exception) {
-            serverLogger.fatal("Произошла ошибка при соединении с клиентом!");
+            serverLogger.fatal("An error appeared when trying to connect with a client");
             throw new ConnectionErrorException();
         }
     }
@@ -110,24 +110,24 @@ public class Server {
         Response responseToUser = null;
         try {
             Request request = getSocketObjet(clientSocket);
-            serverLogger.info("Получен реквест с командой" + request.getCommandName(), userRequest);
+            serverLogger.info("Got a request with a command " + request.getCommandName(), userRequest);
             console.println(request.toString());
             responseToUser = requestHandler.handle(request);
             sendSocketObject(clientSocket, responseToUser);
-            serverLogger.info("Отправлен ответ", responseToUser);
+            serverLogger.info("Response sent", responseToUser);
         } catch (ClassNotFoundException exception) {
-            console.printError("Произошла ошибка при чтении полученных данных!");
-            serverLogger.fatal("Произошла ошибка при чтении полученных данных!");
+            console.printError("An error appeared when trying to read gotten data");
+            serverLogger.fatal("An error appeared when trying to read gotten data");
         } catch (InvalidClassException | NotSerializableException exception) {
-            console.printError("Произошла ошибка при отправке данных на клиент!");
-            serverLogger.error("Произошла ошибка при отправке данных на клиент!");
+            console.printError("An error appeared when trying to sent data to client");
+            serverLogger.error("An error appeared when trying to sent data to client");
         } catch (IOException exception) {
             if (userRequest == null) {
-                console.printError("Непредвиденный разрыв соединения с клиентом!");
-                serverLogger.error("Непредвиденный разрыв соединения с клиентом!");
+                console.printError("Unexpected cancelling of connection with a client");
+                serverLogger.error("Unexpected cancelling of connection with a client");
             } else {
-                console.println("Клиент успешно отключен от сервера!");
-                serverLogger.info("Клиент успешно отключен от сервера!");
+                console.println("Client successfully disconnected from server");
+                serverLogger.info("Client successfully disconnected from server");
             }
         }
         return true;
@@ -144,7 +144,7 @@ public class Server {
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
                 return (Request) objectInputStream.readObject();
             } catch (StreamCorruptedException e) {
-                // if we cannot readObject we havent read yet, so try another time
+                // if we cannot readObject we haven't read yet, so try another time
             }
         }
     }
@@ -163,13 +163,13 @@ public class Server {
             if (socketChannel == null) throw new ClosingSocketException();
             socketChannel.close();
             ss.close();
-            serverLogger.info("все соединения закрыты");
+            serverLogger.info("all connections closed");
         } catch (ClosingSocketException exception) {
-            console.printError("Невозможно завершить работу еще не запущенного сервера!");
-            serverLogger.fatal("Невозможно завершить работу еще не запущенного сервера!");
+            console.printError("Can't close an unopened server");
+            serverLogger.fatal("Can't close an unopened server");
         } catch (IOException exception) {
-            console.printError("Произошла ошибка при завершении работы сервера!");
-            serverLogger.fatal("Произошла ошибка при завершении работы сервера!");
+            console.printError("An error appeared when closing a server");
+            serverLogger.fatal("An error appeared when closing a server");
         }
     }
 }

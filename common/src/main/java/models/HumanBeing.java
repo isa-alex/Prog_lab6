@@ -27,7 +27,6 @@ public class HumanBeing implements Validator, Comparable<HumanBeing>, Serializab
     private Mood mood; //Поле не может быть null
     private Car car; //Поле может быть null
 
-    private static long nextId = 0;
 
     public HumanBeing(String name, Coordinates coordinates, Date creationDate, boolean realHero,
                       boolean hasToothpick, float impactSpeed, WeaponType weaponType, Mood mood, Car car) {
@@ -137,12 +136,13 @@ public class HumanBeing implements Validator, Comparable<HumanBeing>, Serializab
      */
     @Override
     public boolean validate() {
-        if (this.id == null || this.id <= 0) return false;
+        if (this.id == null || this.id.longValue() < 0L) return false;
         if (this.name == null || this.name.isEmpty()) return false;
         if (this.coordinates == null) return false;
         if (this.creationDate == null) return false;
         if (this.hasToothpick == null) return false;
-        return !(this.mood == null);
+        if (this.mood == null) return false;
+        return true;
     }
 
 
@@ -161,7 +161,8 @@ public class HumanBeing implements Validator, Comparable<HumanBeing>, Serializab
         if (hasToothpick != that.hasToothpick) return false;
         if (impactSpeed != that.impactSpeed) return false;
         if (weaponType != that.weaponType) return false;
-        return mood.equals(that.mood);
+        if (mood != that.mood) return false;
+        return true;
     }
 
     @Override

@@ -1,21 +1,117 @@
 <LinkedHashSet>
   <HumanBeing>
     <id>1</id>
-    <name>John Wick</name>
+    <name>Remus</name>
     <coordinates>
-      <x>12.5</x>
-      <y>42.0</y>
+      <x>0.0</x>
+      <y>0.0</y>
     </coordinates>
-    <creationDate>2023-10-25 14:30:00.0 UTC</creationDate>
+    <creationDate>2025-05-20 06:58:23.93 UTC</creationDate>
     <realHero>true</realHero>
     <hasToothpick>false</hasToothpick>
-    <impactSpeed>120.5</impactSpeed>
-    <weaponType>SHOTGUN</weaponType>
+    <impactSpeed>1500.0</impactSpeed>
+    <weaponType>BAT</weaponType>
+    <mood>CALM</mood>
+    <car/>
+  </HumanBeing>
+  <HumanBeing>
+    <id>2</id>
+    <name>Sirius</name>
+    <coordinates>
+      <x>0.0</x>
+      <y>0.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.109 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>true</hasToothpick>
+    <impactSpeed>1200.0</impactSpeed>
+    <weaponType>KNIFE</weaponType>
     <mood>RAGE</mood>
     <car>
-      <name>Mustang</name>
+      <name>Bike</name>
     </car>
   </HumanBeing>
-  <lastInitTime>2025-05-20T00:28:18.9241713</lastInitTime>
-  <lastSaveTime>2025-05-20T00:28:19.1828757</lastSaveTime>
+  <HumanBeing>
+    <id>3</id>
+    <name>James</name>
+    <coordinates>
+      <x>10.0</x>
+      <y>-6.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.117 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>false</hasToothpick>
+    <impactSpeed>1400.0</impactSpeed>
+    <weaponType>HAMMER</weaponType>
+    <mood>FRENZY</mood>
+    <car>
+      <name>Firebolt</name>
+    </car>
+  </HumanBeing>
+  <HumanBeing>
+    <id>4</id>
+    <name>Lily</name>
+    <coordinates>
+      <x>11.0</x>
+      <y>-6.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.125 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>false</hasToothpick>
+    <impactSpeed>1200.0</impactSpeed>
+    <weaponType>SHOTGUN</weaponType>
+    <mood>CALM</mood>
+    <car/>
+  </HumanBeing>
+  <HumanBeing>
+    <id>5</id>
+    <name>Marlene</name>
+    <coordinates>
+      <x>30.0</x>
+      <y>-6.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.133 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>true</hasToothpick>
+    <impactSpeed>1000.0</impactSpeed>
+    <weaponType>BAT</weaponType>
+    <mood>RAGE</mood>
+    <car>
+      <name>Firebolt</name>
+    </car>
+  </HumanBeing>
+  <HumanBeing>
+    <id>6</id>
+    <name>Dorcas</name>
+    <coordinates>
+      <x>32.0</x>
+      <y>-6.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.142 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>false</hasToothpick>
+    <impactSpeed>2000.0</impactSpeed>
+    <weaponType>RIFLE</weaponType>
+    <mood>SORROW</mood>
+    <car/>
+  </HumanBeing>
+  <HumanBeing>
+    <id>7</id>
+    <name>Regulus</name>
+    <coordinates>
+      <x>-10.0</x>
+      <y>-12.0</y>
+    </coordinates>
+    <creationDate>2025-05-20 06:58:23.150 UTC</creationDate>
+    <realHero>true</realHero>
+    <hasToothpick>false</hasToothpick>
+    <impactSpeed>1200.0</impactSpeed>
+    <weaponType>KNIFE</weaponType>
+    <mood>SADNESS</mood>
+    <car>
+      <name>Firebolt</name>
+    </car>
+  </HumanBeing>
+  <lastInitTime>2025-05-20T09:58:16.4750836</lastInitTime>
+  <lastSaveTime>2025-05-20T09:58:23.1520858</lastSaveTime>
 </LinkedHashSet>

@@ -25,13 +25,13 @@ public class App extends Thread {
         CollectionManager collectionManager = new CollectionManager();
         FileManager fileManager = new FileManager(console, collectionManager);
         try{
-            App.rootLogger.info("Создание объектов");
+            App.rootLogger.info("Objects creation");
             fileManager.findFile();
             fileManager.createObjects();
-            App.rootLogger.info("Создание объектов успешно завершено");
+            App.rootLogger.info("Objects had been created Successfully");
         } catch (ExitObligated e){
-            console.println("До свидания!");
-            App.rootLogger.error("Ошибка во времени создания объектов");
+            console.println("See you soon");
+            App.rootLogger.error("Objects creation error");
             return;
         }
 
@@ -53,11 +53,11 @@ public class App extends Thread {
                 new PrintDescending(collectionManager),
                 new PrintAscending(collectionManager)
         ));
-        App.rootLogger.debug("Создан объект менеджера команд");
+        App.rootLogger.debug("Command manager object had been created");
         RequestHandler requestHandler = new RequestHandler(commandManager);
-        App.rootLogger.debug("Создан объект обработчика запросов");
+        App.rootLogger.debug("Request manager object had been crated");
         Server server = new Server(PORT, CONNECTION_TIMEOUT, requestHandler, fileManager);
-        App.rootLogger.debug("Создан объект сервера");
+        App.rootLogger.debug("Server object had been created");
         server.run();
     }
 }

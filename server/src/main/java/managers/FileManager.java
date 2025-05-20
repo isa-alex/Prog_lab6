@@ -8,9 +8,8 @@ import exceptions.InvalidForm;
 import models.HumanBeing;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utilty.Console;
 import utilty.Printable;
-import utilty.Server;
+
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -28,7 +27,7 @@ public class FileManager {
     static final Logger fileManagerLogger = LogManager.getLogger(FileManager.class);
 
     /**
-     * В конструкторе задаются алиасы для библиотеки {@link XStream} которая используется для работы с xml
+     * В конструкторе задаются alias для библиотеки {@link XStream} которая используется для работы с xml
      * @param console Пользовательский ввод-вывод
      * @param collectionManager Работа с коллекцией
      */
@@ -40,7 +39,7 @@ public class FileManager {
         this.xStream.alias("LinkedHashSet", CollectionManager.class);
         this.xStream.addPermission(AnyTypePermission.ANY);
         this.xStream.addImplicitCollection(CollectionManager.class, "collection");
-        fileManagerLogger.info("Созданы для алиасы для xstream");
+        fileManagerLogger.info("Alias for xstream had been created");
     }
 
     /**
@@ -50,11 +49,11 @@ public class FileManager {
     public void findFile() throws ExitObligated{
         String file_path = System.getenv("file_path");
         if (file_path == null || file_path.isEmpty()) {
-            console.printError("Путь должен быть в переменных окружения в переменной 'file_path'");
+            console.printError("Path has to be in environmental variable named 'file_path'");
             throw new ExitObligated();
         }
-        else console.println("Путь получен успешно");
-        fileManagerLogger.info("Пусть получен успешно");
+        else console.println("Path had been successfully gotten");
+        fileManagerLogger.info("Path had been successfully gotten");
 
         File file = new File(file_path);
         BufferedInputStream bis;
@@ -63,27 +62,27 @@ public class FileManager {
         try {
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
-            fileManagerLogger.info("Открыто соединение с файлом");
+            fileManagerLogger.info("Connection with the file had been opened");
             while (bis.available() > 0) {
                 stringBuilder.append((char) bis.read());
             }
             fis.close();
             bis.close();
-            fileManagerLogger.info("Файл прочитан");
+            fileManagerLogger.info("File had been read");
             if (stringBuilder.isEmpty()) {
-                console.printError("Файл пустой");
-                fileManagerLogger.info("Файл пустой");
+                console.printError("File is empty");
+                fileManagerLogger.info("File is empty");
                 this.text = "</LinkedHashSet>";
                 return;
             }
             this.text = stringBuilder.toString();
         } catch (FileNotFoundException fnfe) {
-            console.printError("Такого файла не найдено");
-            fileManagerLogger.fatal("Такого файла не найдено");
+            console.printError("There is no such file");
+            fileManagerLogger.fatal("There is no such file");
             throw new ExitObligated();
         } catch (IOException ioe) {
-            console.printError("Ошибка ввода/вывода" + ioe);
-            fileManagerLogger.fatal("Ошибка ввода/вывода" + ioe);
+            console.printError("input/output error" + ioe);
+            fileManagerLogger.fatal("input/output error" + ioe);
             throw new ExitObligated();
         }
     }
@@ -100,28 +99,29 @@ public class FileManager {
             xstream.addPermission(AnyTypePermission.ANY);
             xstream.addImplicitCollection(CollectionManager.class, "collection");
 
-            fileManagerLogger.info("Сконфигурирован xstream для чтения из файла");
+            fileManagerLogger.info("xstream configuration for reading from file had been made");
             CollectionManager collectionManagerWithObjects = (CollectionManager) xstream.fromXML(this.text);
-            fileManagerLogger.info("Прочитан файл", collectionManagerWithObjects.getCollection());
+            fileManagerLogger.info("File had been read", collectionManagerWithObjects.getCollection());
 
             for(HumanBeing s : collectionManagerWithObjects.getCollection()){
                 if (this.collectionManager.checkExist(s.getId())){
-                    console.printError("В файле повторяются айди!");
+                    console.printError("Repeated id in file");
                     throw new ExitObligated();
                 }
                 if (!s.validate()) throw new InvalidForm();
                 this.collectionManager.addElement(s);
-                fileManagerLogger.info("Добавлен объект", s);
+                fileManagerLogger.info("Added object", s);
             }
 
         } catch (InvalidForm invalidForm) {
-            console.printError("Объекты в файле не валидны");fileManagerLogger.fatal("Объекты в файле не валидны");
+            console.printError("Objects in file are invalid");
+            fileManagerLogger.fatal("Objects in file are invalid");
             throw new ExitObligated();
         } catch (StreamException streamException){
-            console.println("Файл пустой");
-            fileManagerLogger.error("Файл пустой");
+            console.println("File is empty");
+            fileManagerLogger.error("File is empty");
         }
-        console.println("Получены объекты:\n" + collectionManager.getCollection().toString());
+        console.println("Had been gotten objects:\n" + collectionManager.getCollection().toString());
         CollectionManager.updateId(collectionManager.getCollection());
     }
 
@@ -131,24 +131,24 @@ public class FileManager {
     public void saveObjects(){
         String file_path = System.getenv("file_path");
         if (file_path == null || file_path.isEmpty()) {
-            console.printError("Путь должен быть в переменных окружения в перменной 'file_path'");
-            fileManagerLogger.fatal("Отсутствует путь в переменных окружения"); }
+            console.printError("Path has to be in environmental variable named  'file_path'");
+            fileManagerLogger.fatal("There is no path in environmental variable"); }
         else {
-            console.println("Путь получен успешно");
-            fileManagerLogger.info("Путь получен успешно");
+            console.println("Path had been gotten successfully");
+            fileManagerLogger.info("Path has to be in environmental variable named ");
         }
         try{
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file_path));
             out.write(this.xStream.toXML(collectionManager)
                     .getBytes(StandardCharsets.UTF_8));
             out.close();
-            fileManagerLogger.info("Файл записан");
+            fileManagerLogger.info("File had been written");
         } catch (FileNotFoundException e) {
-            console.printError("Файл не существует");
-            fileManagerLogger.error("Файл не существует");
+            console.printError("File does not exist");
+            fileManagerLogger.error("File does not exist");
         }catch (IOException e){
-            console.printError("Ошибка ввода вывода");
-            fileManagerLogger.error("Ошибка ввода вывода");
+            console.printError("input/output error");
+            fileManagerLogger.error("input/output error");
         }
     }
 }

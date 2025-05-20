@@ -10,7 +10,7 @@ import exceptions.IllegalArguments;
 import exceptions.NoSuchCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utilty.RequestHandler;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,13 +42,13 @@ public class CommandManager {
 
     private void addCommand(Command command) {
         this.commands.put(command.getName(), command);
-        commandManagerLogger.info("Добавлена команда", command);
+        commandManagerLogger.info("Command added", command);
     }
 
     public void addCommand(Collection<Command> commands) {
         this.commands.putAll(commands.stream()
                 .collect(Collectors.toMap(Command::getName, s ->s)));
-        commandManagerLogger.info("Добавлены комманды", commands);
+        commandManagerLogger.info("Commands added", commands);
     }
 
     public Collection<Command> getCommands() {
@@ -58,7 +58,7 @@ public class CommandManager {
     public void addToHistory(String line) {
         if (line.isBlank()) return;
         this.commandHistory.add(line);
-        commandManagerLogger.info("Добавлена команда в историю" + line, line);
+        commandManagerLogger.info("Command had been added to history " + line, line);
     }
 
     public List<String> getCommandHistory(){
@@ -77,13 +77,13 @@ public class CommandManager {
             NoSuchCommand, IllegalArguments, CommandRunTimeError, ExitObligated {
         Command command = commands.get(request.getCommandName());
         if (command == null) {
-            commandManagerLogger.fatal("Нет такой комманды" + request.getCommandName());
+            commandManagerLogger.fatal("No such command" + request.getCommandName());
             throw new NoSuchCommand();
         }
         Response response = command.execute(request);
-        commandManagerLogger.info("Выполнение команды ", response);
+        commandManagerLogger.info("Running command ", response);
         if (command instanceof CollectionEditor) {
-            commandManagerLogger.info("Файл обновлен");
+            commandManagerLogger.info("File updated");
             fileManager.saveObjects();
         }
         return response;

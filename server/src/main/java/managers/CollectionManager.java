@@ -42,12 +42,12 @@ public class CollectionManager {
     }
 
     public static void updateId(LinkedHashSet<HumanBeing> collection) {
-        nextId = collection
-                .stream()
+        nextId = collection.stream()
                 .filter(Objects::nonNull)
                 .map(HumanBeing::getId)
-                .mapToLong(Long::longValue)
-                .max().orElse(0) + 1;
+                .max(Long::compareTo)
+                .orElse(0L);
+        collectionManagerLogger.info("id updated to " + nextId);
     }
 
     public static long getNextId() {
@@ -105,9 +105,9 @@ public class CollectionManager {
 
     public void clear() {
         this.collection.clear();
-        nextId = 1;
+        nextId = 0;
         lastInitTime = LocalDateTime.now();
-        collectionManagerLogger.info("Коллекция очищена");
+        collectionManagerLogger.info("Collection had been cleared");
     }
 
     public HumanBeing getLast() {
@@ -139,7 +139,7 @@ public class CollectionManager {
         this.removeElement(pastEl);
         newElement.setId(id);
         this.addElement(newElement);
-        collectionManagerLogger.info("Объект с айди " + id + " изменен", newElement);
+        collectionManagerLogger.info("object with id " + id + " had been changed", newElement);
     }
 
     /**
@@ -153,7 +153,7 @@ public class CollectionManager {
     public void addElement(HumanBeing humanBeing) {
         this.lastSaveTime = LocalDateTime.now();
         collection.add(humanBeing);
-        collectionManagerLogger.info("Добавлен объект в коллекцию", humanBeing);
+        collectionManagerLogger.info("To collection had been added object ", humanBeing);
 
     }
 
@@ -173,7 +173,7 @@ public class CollectionManager {
 
     @Override
     public String toString() {
-        if (collection.isEmpty()) return "Коллекция пуста!";
+        if (collection.isEmpty()) return "Collection is empty";
         var last = getLast();
 
         StringBuilder info = new StringBuilder();

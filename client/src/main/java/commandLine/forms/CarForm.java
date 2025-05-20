@@ -32,11 +32,8 @@ public class CarForm extends Form<Car>{
     }
 
     private String askName() {
-        while (true) {
-            console.print("Есть ли машина? (Название если есть | no если машины нет): ");
-            String input = scanner.nextLine().trim().toLowerCase();
-            if (input.equals("no")) return "no car";
-            return input;
-        }
+        console.println("Введите название машины (оставьте пустым если ее нет): ");
+        String name = scanner.nextLine().trim();
+        return name.isEmpty() ? null : name;
     }
 }

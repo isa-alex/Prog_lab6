@@ -16,7 +16,7 @@ import java.util.List;
 public class History extends Command{
     private CommandManager commandManager;
     public History(CommandManager commandManager) {
-        super("history", " вывести последние 5 команд (без их аргументов)");
+        super("history", " вывести последние 8 команд (без их аргументов)");
         this.commandManager = commandManager;
     }
 
@@ -31,6 +31,6 @@ public class History extends Command{
         List<String> history= commandManager.getCommandHistory();
         return new Response(ResponseStatus.OK,
                 String.join("\n",
-                        history.subList(Math.max(history.size() - 5, 0), history.size())));
+                        history.subList(Math.max(history.size() - 8, 0), history.size())));
     }
 }
